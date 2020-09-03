@@ -7,14 +7,30 @@ function ExceptionNpm(message) {
 
 const NpmUtils = {
   /**
+   * return list of 3 last vestions and previous major if any
    *
-   *
-   * @param {*} packageName
+   * @param {string} packageName
    * @return {Promise<Array>}
    */
   getVersions(packageName) {
     return exec(`npm view ${packageName} versions --json`)
       .then(this.parseVersion)
+      .catch(this.parseError);
+  },
+
+  /**
+   *
+   *
+   * @param {stirng} packageName
+   * @param {string} version
+   * @param {string} path path where package should be installed
+   * @return {Promise<void>}
+   */
+  async installPackage(packageName, version, path) {
+    return exec(`npm install ${packageName}@${version}`, { cwd: path })
+      .then(() => {
+        console.log(`${packageName}@${version} installed`);
+      })
       .catch(this.parseError);
   },
 

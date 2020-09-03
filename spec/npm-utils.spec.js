@@ -1,4 +1,8 @@
 const NpmUtils = require("../src/npm-util");
+const mkdir = require("mkdir-promise");
+const path = require("path");
+const rimraf = require("rimraf");
+var fs = require("fs");
 
 describe("When parsing node versions stdout", () => {
   describe("for less than 3 versions", () => {
@@ -40,5 +44,28 @@ describe("When parsing node versions stdout", () => {
         NpmUtils.parseVersion('["1.2.1", "1.10.0", "3.0.0", "2.1.0"]')
       ).toEqual(["1.10.0", "2.1.0", "3.0.0"]);
     });
+  });
+});
+
+describe("install package", () => {
+  let originalTimeout;
+  beforeAll(function() {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
+  });
+
+  afterAll(function() {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+  });
+
+  it("should install", async () => {
+    let buildpath = path.join("/tmp", "1");
+    await mkdir(buildpath);
+
+    await NpmUtils.installPackage("react", "16.3.0-alpha.1", buildpath);
+    expect(fs.existsSync(path.join(buildpath, "node_modules"))).toBe(true);
+    //clean up
+    rimraf.sync(buildpath);
+    expect(fs.existsSync(path.join(buildpath))).toBe(false);
   });
 });
