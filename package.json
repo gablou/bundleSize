@@ -5,10 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "fastify": "^3.3.0",
+    "gzip-size": "^5.1.1",
     "make-promises-safe": "^5.1.0",
-    "mkdir-promise": "^1.0.0",
+    "mkdirp": "^1.0.4",
     "rimraf": "^3.0.2",
-    "semver": "^7.3.2"
+    "semver": "^7.3.2",
+    "terser-webpack-plugin": "^4.1.0",
+    "webpack": "^4.44.1"
   },
   "devDependencies": {
     "eslint": "^7.8.1",

@@ -1,5 +1,5 @@
 const NpmUtils = require("../src/npm-util");
-const mkdir = require("mkdir-promise");
+const mkdir = require("mkdirp");
 const path = require("path");
 const rimraf = require("rimraf");
 var fs = require("fs");
@@ -59,13 +59,13 @@ describe("install package", () => {
   });
 
   it("should install", async () => {
-    let buildpath = path.join("/tmp", "1");
-    await mkdir(buildpath);
+    const buildPath = path.join(process.cwd(), "tmp", "1");
+    await mkdir(buildPath);
 
-    await NpmUtils.installPackage("react", "16.3.0-alpha.1", buildpath);
-    expect(fs.existsSync(path.join(buildpath, "node_modules"))).toBe(true);
+    await NpmUtils.installPackage("react", "16.3.0-alpha.1", buildPath);
+    expect(fs.existsSync(path.join(buildPath, "node_modules"))).toBe(true);
     //clean up
-    rimraf.sync(buildpath);
-    expect(fs.existsSync(path.join(buildpath))).toBe(false);
+    rimraf.sync(buildPath);
+    expect(fs.existsSync(path.join(buildPath))).toBe(false);
   });
 });

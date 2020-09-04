@@ -1,4 +1,5 @@
 const { exec } = require("./utils");
+const path = require("path");
 const semver = require("semver");
 
 function ExceptionNpm(message) {
@@ -23,11 +24,30 @@ const NpmUtils = {
    *
    * @param {stirng} packageName
    * @param {string} version
-   * @param {string} path path where package should be installed
+   * @param {string} buildPath path where package should be installed
    * @return {Promise<void>}
    */
-  async installPackage(packageName, version, path) {
-    return exec(`npm install ${packageName}@${version}`, { cwd: path })
+  async installPackage(packageName, version, buildPath) {
+    console.log("install in :", buildPath);
+    const flags = [
+      // Setting cache is required for concurrent `npm install`s to work
+      `cache=${path.join(buildPath, "cache")}`,
+      "no-package-lock",
+      "no-shrinkwrap",
+      "no-optional",
+      "no-bin-links",
+      "prefer-offline",
+      "progress false",
+      "loglevel error",
+      "ignore-scripts",
+      "save-exact",
+      "production",
+      `prefix ${buildPath}`,
+    ];
+    return exec(
+      `npm install ${packageName}@${version} --${flags.join(" --")}`,
+      { cwd: buildPath }
+    )
       .then(() => {
         console.log(`${packageName}@${version} installed`);
       })
