@@ -13,9 +13,10 @@ describe("install package", () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 
-  it("should install", async () => {
+  fit("should install", async () => {
     const buildpath = path.join(process.cwd(), "tmp", "1");
 
+    // await packageBuilder.getPackageSize("@angular/core", "10.1.0")
     expect(await packageBuilder.getPackageSize("angular", "1.8.0")).toEqual({
       packageName: "angular",
       version: "1.8.0",

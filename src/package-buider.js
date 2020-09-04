@@ -40,7 +40,11 @@ const PackageBuilder = {
       compiler.run((err, stats) => {
         if (err) {
           console.log(err);
-          reject(err);
+          reject();
+        }
+        if (stats.compilation.errors.length) {
+          console.log(stats.compilation.errors);
+          reject();
         }
         resolve();
       });
