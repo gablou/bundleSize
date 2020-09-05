@@ -11,7 +11,7 @@ const NpmUtils = {
    * return list of 3 last vestions and previous major if any
    *
    * @param {string} packageName
-   * @return {Promise<Array>}
+   * @return {Promise<stirng[]>}
    */
   getVersions(packageName) {
     return exec(`npm view ${packageName} versions --json`)

@@ -3,14 +3,17 @@ const path = require("path");
 var fs = require("fs");
 
 describe("install package", () => {
-  let originalTimeout;
+  let originalTimeout, originalRandom;
   beforeAll(function() {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
+    originalRandom = Math.random;
+    Math.random = () => 0.001;
   });
 
   afterAll(function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    Math.random = originalRandom;
   });
 
   it("should install", async () => {

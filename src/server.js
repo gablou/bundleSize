@@ -1,4 +1,7 @@
 require("make-promises-safe"); // installs an 'unhandledRejection' handler
+const npmUtils = require("./npm-util");
+const packageBuilder = require("./package-buider");
+
 const fastify = require("fastify")({
   logger: true,
 });
@@ -18,9 +21,53 @@ const schema = {
   querystring: queryStringJsonSchema,
 };
 
-fastify.get("/bundle-size", { schema }, async (request, reply) => {
-  return { hello: "world" };
-});
+fastify.get(
+  "/bundle-size",
+  { schema, attachValidation: true },
+  async (request, reply) => {
+    if (request.validationError) {
+      reply.code(400).send({
+        statusCode: 400,
+        type: "InvalidParameter",
+        error: "Bad Request",
+        message: request.validationError.message,
+      });
+    } else {
+      try {
+        const packageName = request.query.name;
+        const versions = await npmUtils.getVersions(packageName);
+        const promises = versions.map(async (version) => {
+          return packageBuilder
+            .getPackageSize(packageName, version)
+            .then((size) => size)
+            .catch(() => ({
+              packageName,
+              version,
+              error: true,
+            }));
+        });
+        const res = await Promise.all(promises);
+        reply.send(res);
+      } catch (err) {
+        if (err.message === "PackageNotFoundError") {
+          reply.code(400).send({
+            statusCode: 400,
+            type: "PackageNotFoundError",
+            error: "Bad Request",
+            message: "Unable to find package",
+          });
+        } else {
+          reply.code(500).send({
+            statusCode: 500,
+            type: "UnknowError",
+            error: "Internal Error",
+            message: "UnknowError",
+          });
+        }
+      }
+    }
+  }
+);
 
 const start = async () => {
   try {
