@@ -13,16 +13,15 @@ describe("install package", () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 
-  fit("should install", async () => {
+  it("should install", async () => {
     const buildpath = path.join(process.cwd(), "tmp", "1");
 
     // await packageBuilder.getPackageSize("@angular/core", "10.1.0")
-    expect(await packageBuilder.getPackageSize("angular", "1.8.0")).toEqual({
-      packageName: "angular",
-      version: "1.8.0",
-      size: 185311,
-      sizeGzip: 63645,
-    });
+    const packageSize = await packageBuilder.getPackageSize("angular", "1.8.0");
+    expect(packageSize.packageName).toEqual("angular");
+    expect(packageSize.version).toEqual("1.8.0");
+    expect(packageSize.size / 10000).toBeCloseTo(18.5311, 1);
+    expect(packageSize.sizeGzip / 10000).toBeCloseTo(6.3645, 1);
     expect(fs.existsSync(buildpath)).toBe(false);
   });
 });

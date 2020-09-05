@@ -8,6 +8,21 @@ const gzipSize = require("gzip-size");
 const rimraf = require("rimraf");
 
 const PackageBuilder = {
+  /**
+   * @typedef PackageSize
+   * @type {object}
+   * @property {string} packageName
+   * @property {string} version
+   * @property {number} size size in bytes
+   * @property {number} sizeGzip siez in bytes
+   */
+  /**
+   *
+   *
+   * @param {string} packageName
+   * @param {string} version
+   * @return {Promise<PackageSize>}
+   */
   async getPackageSize(packageName, version) {
     const buildPath = path.join(process.cwd(), "tmp", "1");
     const distPath = path.resolve(buildPath, "dist");
@@ -69,19 +84,6 @@ const PackageBuilder = {
       fs.writeFileSync(
         entryPoint,
         `import p from '${packageName}'; console.log(p)`
-      );
-      return entryPoint;
-    } catch (err) {
-      console.log(err);
-    }
-  },
-
-  createWebPackConfig(buildPath, packageName) {
-    const entryPoint = path.join(buildPath, "index.js");
-    try {
-      fs.writeFileSync(
-        entryPoint,
-        `const webpack = require("${packageName}");`
       );
       return entryPoint;
     } catch (err) {
