@@ -35,7 +35,7 @@ function Chart(props) {
     return { size: Math.max(a.size || 0, b.size || 0) };
   }).size;
   let listItems = packageDatas.map((packageData, index) => (
-    <div key={index}>
+    <div key={packageData.version}>
       {packageData.error ? (
         <div className="bar error">could not calculate</div>
       ) : (
@@ -50,7 +50,9 @@ function Chart(props) {
   ));
   if (packageDatas.length < 4) {
     listItems.unshift(
-      <div className="bar error">No previous major version</div>
+      <div key={0} className="bar error">
+        No previous major version
+      </div>
     );
   }
   return (
