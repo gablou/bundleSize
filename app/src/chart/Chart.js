@@ -34,7 +34,7 @@ function Chart(props) {
   const maxSize = packageDatas.reduce(function(a, b) {
     return { size: Math.max(a.size || 0, b.size || 0) };
   }).size;
-  const listItems = packageDatas.map((packageData, index) => (
+  let listItems = packageDatas.map((packageData, index) => (
     <div key={index}>
       {packageData.error ? (
         <div className="bar error">could not calculate</div>
@@ -48,6 +48,11 @@ function Chart(props) {
       <div className="version">{packageData.version}</div>
     </div>
   ));
+  if (packageDatas.length < 4) {
+    listItems.unshift(
+      <div className="bar error">No previous major version</div>
+    );
+  }
   return (
     <div>
       <div className="d-flex justify-content-center">
