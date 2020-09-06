@@ -1,0 +1,58 @@
+.chart {
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+}
+
+.bar {
+  margin: 0 5px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 70px;
+  font-size: 14px;
+}
+.bar.error {
+  background-color: dimgray;
+  border-radius: 5px;
+}
+
+.gz-size {
+  display: flex;
+  border-radius: 0 0 5px 5px;
+  background-color: #4b6b91;
+}
+
+.size {
+  display: flex;
+  border-radius: 5px 5px 0 0;
+  background-color: #4ec5f1;
+}
+
+.size-label {
+  margin: auto;
+}
+
+.version {
+  font-size: 14px;
+}
+
+.minimified::before,
+.gziped::before {
+  content: "";
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  background-color: #4ec5f1;
+  margin-right: 5px;
+}
+
+.gziped::before {
+  background-color: #4b6b91;
+}
+
+.minimified,
+.gziped {
+  margin: 0 5px 10px 5px;
+}
