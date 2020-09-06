@@ -71,7 +71,7 @@ fastify.get(
 
 const start = async () => {
   try {
-    await fastify.listen(3000);
+    await fastify.listen(4000);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

@@ -14,43 +14,39 @@ const validate = (values) => {
   return errors;
 };
 
-const Form = () => {
-  // Pass the useFormik() hook initial form values and a submit function that will
-
-  // be called when the form is submitted
-
+const Form = (props) => {
   const formik = useFormik({
     initialValues: {
       packageName: "",
     },
     validate,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      props.onPackageNameSubmit(values);
     },
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} class="main-form">
-      <div class="form-group">
+    <form onSubmit={formik.handleSubmit} className="main-form">
+      <div className="form-group">
         <label htmlFor="packageName">Enter Package Name</label>
-        <div class="input-group">
+        <div className="input-group">
           <input
             id="packageName"
             name="packageName"
             type="text"
             onChange={formik.handleChange}
             value={formik.values.packageName}
-            class="form-control"
+            className="form-control"
           />
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-outline-secondary">
+          <div className="input-group-append">
+            <button type="submit" className="btn btn-outline-secondary">
               Go
             </button>
           </div>
         </div>
 
         {formik.errors.packageName ? (
-          <small class="form-text text-danger">
+          <small className="form-text text-danger">
             {formik.errors.packageName}
           </small>
         ) : null}
