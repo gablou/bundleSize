@@ -9,7 +9,6 @@ function SizeBar(props) {
   const sizeStyle = {
     height: `${Math.floor(((props.size - props.sizeGzip) / props.max) * 100)}%`,
   };
-  console.log(sizeStyle);
   return (
     <div className="bar">
       <div style={sizeStyle} className="size">
@@ -32,7 +31,7 @@ function Chart(props) {
 
   // chart display
   const packageDatas = props.result.data;
-  const maxSize = packageDatas.reduce(function(a, b) {
+  const maxSize = packageDatas.reduce(function (a, b) {
     return { size: Math.max(a.size || 0, b.size || 0) };
   }).size;
 
