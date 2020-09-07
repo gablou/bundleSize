@@ -85,7 +85,7 @@ const NpmUtils = {
     if (errorStr.includes("code E404")) {
       throw new ExceptionNpm("PackageNotFoundError");
     } else {
-      throw new ExceptionNpm("UnknowError");
+      throw new ExceptionNpm("UnknownError");
     }
   },
 };

@@ -59,9 +59,9 @@ fastify.get(
         } else {
           reply.code(500).send({
             statusCode: 500,
-            type: "UnknowError",
+            type: "UnknownError",
             error: "Internal Error",
-            message: "UnknowError",
+            message: "Unknown Error",
           });
         }
       }
