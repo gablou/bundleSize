@@ -25,30 +25,39 @@ function SizeBar(props) {
 function Chart(props) {
   if (props.result.data === null) {
     return null;
-  }
+  } // nothing to display
   if (props.result.error) {
     return <div>{props.result.data}</div>;
-  }
+  } // error display
 
+  // chart display
   const packageDatas = props.result.data;
   const maxSize = packageDatas.reduce(function(a, b) {
     return { size: Math.max(a.size || 0, b.size || 0) };
   }).size;
-  let listItems = packageDatas.map((packageData, index) => (
-    <div key={packageData.version}>
-      {packageData.error ? (
-        <div className="bar error">could not calculate</div>
-      ) : (
+
+  let listItems = packageDatas.map((packageData) => {
+    if (packageData.error) {
+      return (
+        <div key={packageData.version}>
+          <div className="bar error">could not calculate</div>
+        </div>
+      );
+    }
+    return (
+      <div key={packageData.version}>
         <SizeBar
           max={maxSize}
           size={packageData.size}
           sizeGzip={packageData.sizeGzip}
         />
-      )}
-      <div className="version">{packageData.version}</div>
-    </div>
-  ));
+        <div className="version">{packageData.version}</div>
+      </div>
+    );
+  });
+
   if (packageDatas.length < 4) {
+    // add special bar when no major version
     listItems.unshift(
       <div key={0} className="bar error">
         No previous major version
