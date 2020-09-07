@@ -13,13 +13,14 @@
     "package-name-regex": "^1.0.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "coverage": "npm test -- --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": "react-app"
