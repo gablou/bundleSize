@@ -40,6 +40,7 @@ function Chart(props) {
       return (
         <div key={packageData.version}>
           <div className="bar error">could not calculate</div>
+          <div className="version">{packageData.version}</div>
         </div>
       );
     }
