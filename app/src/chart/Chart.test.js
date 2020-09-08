@@ -68,7 +68,7 @@ test("if 4 version no missing previous major version message", () => {
     error: false,
     data: [
       { packageName: "testPackage", version: "1.1.4", error: true },
-      { packageName: "testPackage", version: "1.1.4", error: true },
+      { packageName: "testPackage", version: "1.1.5", error: true },
       {
         packageName: "testPackage",
         version: "2.0.0",
