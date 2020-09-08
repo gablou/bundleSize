@@ -18,3 +18,4 @@ you can run lint via `npm run lint`
 ### environemnt
 
 tested on windows and nodejs v12.18.3
+command were runed with git bash
