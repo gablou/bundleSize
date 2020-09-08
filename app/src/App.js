@@ -13,12 +13,12 @@ function App() {
     setLoading(true);
     axios
       .get(`/bundle-size?name=${values.packageName}`)
-      .then(function(response) {
+      .then(function (response) {
         setLoading(false);
         setResult({ error: false, data: response.data });
         console.log(response);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         setLoading(false);
         if (error.response) {
           setResult({ error: true, data: error.response.data.message });
@@ -30,7 +30,10 @@ function App() {
 
   return (
     <div className="App">
-      <Form onPackageNameSubmit={(values) => onPackageNameSubmit(values)} />
+      <Form
+        onPackageNameSubmit={(values) => onPackageNameSubmit(values)}
+        disabled={loading}
+      />
       {(() => {
         if (loading) {
           return (

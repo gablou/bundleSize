@@ -37,9 +37,14 @@ const Form = (props) => {
             onChange={formik.handleChange}
             value={formik.values.packageName}
             className="form-control"
+            disabled={props.disabled}
           />
           <div className="input-group-append">
-            <button type="submit" className="btn btn-outline-secondary">
+            <button
+              type="submit"
+              className="btn btn-outline-secondary"
+              disabled={props.disabled}
+            >
               Go
             </button>
           </div>
