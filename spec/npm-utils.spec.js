@@ -49,12 +49,12 @@ describe("When parsing node versions stdout", () => {
 
 describe("install package", () => {
   let originalTimeout;
-  beforeAll(function() {
+  beforeAll(function () {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
   });
 
-  afterAll(function() {
+  afterAll(function () {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 

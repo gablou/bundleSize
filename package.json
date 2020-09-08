@@ -16,13 +16,22 @@
   },
   "devDependencies": {
     "eslint": "^6.6.0",
-    "jasmine": "^3.6.1"
+    "jasmine": "^3.6.1",
+    "npm-run-all": "^4.1.5"
   },
   "scripts": {
     "eslint": "eslint",
     "jasmine": "jasmine",
-    "start": "node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "run-p start-*",
+    "start-be": "node src/server.js",
+    "start-front": "cd app && npm run start",
+    "test": "run-s test-*",
+    "test-be": "npm run jasmine",
+    "test-front": "cd app && npm run coverage",
+    "lint": "run-s lint-*",
+    "lint-be": "eslint ./src/**/*.js ./spec/**/*.js",
+    "lint-front": "cd app && npm run lint",
+    "postinstall": "cd app && npm install"
   },
   "repository": {
     "type": "git",
