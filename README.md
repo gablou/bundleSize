@@ -15,7 +15,7 @@ you can run unit test and see webapp coverage via `npm test`
 
 you can run lint via `npm run lint`
 
-### environemnt
+### environnement
 
 tested on windows and nodejs v12.18.3
-command were runed with git bash
+command were ran with git bash.
